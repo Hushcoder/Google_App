@@ -93,10 +93,13 @@ def main():
 
     data = get_form_data()
 
+    sent_any = False
+
     with open(PROCESSED_FLAG_FILE, 'a') as f:
         for row in data:
-            if len(row) < 2:
+            if len(row) < 4:
                 continue
+
             timestamp, name, email, message = row
             if timestamp in processed:
                 continue
@@ -105,4 +108,9 @@ def main():
             send_email(email, "Re: Your Query", reply)
 
             f.write(timestamp + '\n')
-            print(f"Email sent to {email}")
+            st.success(f"✅ Email sent to {email}")
+            sent_any = True
+
+    if not sent_any:
+        st.info("ℹ️ No new responses found or all already processed.")
+
