@@ -1,3 +1,4 @@
 .env
 credentials.json
 processed_ids.txt
+gapp
