@@ -1,0 +1,20 @@
+# Required for Google Sheets API
+google-api-python-client==2.122.0
+google-auth==2.29.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.0
+
+# For managing Google Service Account credentials
+oauth2client==4.1.3
+
+# For making HTTP requests (Gemini API)
+requests==2.31.0
+
+# If you use a .env file to manage credentials
+python-dotenv==1.0.1
+
+# For data manipulation (used in some variations)
+pandas==2.2.2
+
+streamlit==1.35.0
+
