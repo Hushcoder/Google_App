@@ -22,10 +22,10 @@ EMAIL_PASS = os.getenv("APP_PASSWORD")
 # === AUTHENTICATE SHEETS ===
 def get_sheet_service():
     creds = service_account.Credentials.from_service_account_info(
-        dict(st.secrets["google"]),  # Load from Streamlit Secrets
-        scopes=['https://www.googleapis.com/auth/spreadsheets.readonly']
+        dict(st.secrets["google"]),
+        scopes=["https://www.googleapis.com/auth/spreadsheets.readonly"]
     )
-    return build('sheets', 'v4', credentials=creds)
+    return build("sheets", "v4", credentials=creds)
 
 # === READ GOOGLE SHEET ===
 def get_form_data():
