@@ -12,7 +12,7 @@ load_dotenv()
 
 # === CONFIG ===
 SPREADSHEET_ID = '1SGnwsvlJgoppipYm0g0cw9dU318-1mYDA5GQeYp1yZE'
-RANGE = 'Form Responses 1!C:D'  # Adjust columns as needed
+RANGE = 'Form Responses 1!A:D'  # Adjust columns as needed
 PROCESSED_FLAG_FILE = 'processed_ids.txt'
 GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
