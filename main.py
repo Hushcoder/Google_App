@@ -38,6 +38,16 @@ def get_form_data():
     return values
 
 # === GEMINI REPLY GENERATOR ===
+# def generate_reply(user_message, user_name):
+#     prompt = f"Write a polite and helpful email in response to the following query:\n\nName: {user_name}\nQuery: {user_message}"
+#     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+    
+#     payload = {
+#         "contents": [{"parts": [{"text": prompt}]}]
+#     }
+#     response = requests.post(url, json=payload)
+#     result = response.json()
+#     return result['candidates'][0]['content']['parts'][0]['text']
 def generate_reply(user_message, user_name):
     prompt = f"Write a polite and helpful email in response to the following query:\n\nName: {user_name}\nQuery: {user_message}"
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
@@ -45,9 +55,22 @@ def generate_reply(user_message, user_name):
     payload = {
         "contents": [{"parts": [{"text": prompt}]}]
     }
-    response = requests.post(url, json=payload)
-    result = response.json()
-    return result['candidates'][0]['content']['parts'][0]['text']
+
+    try:
+        response = requests.post(url, json=payload)
+        result = response.json()
+
+        # Debug log
+        st.write("📡 Gemini API response:", result)
+
+        if "candidates" not in result:
+            raise ValueError(f"❌ Gemini API error: {result.get('error', 'Unknown error')}")
+
+        return result['candidates'][0]['content']['parts'][0]['text']
+    
+    except Exception as e:
+        st.error(f"🚨 Gemini API call failed: {e}")
+        raise
 
 # === SEND EMAIL ===
 def send_email(to_email, subject, body):
@@ -72,7 +95,7 @@ def main():
 
     with open(PROCESSED_FLAG_FILE, 'a') as f:
         for row in data:
-            if len(row) < 4:
+            if len(row) < 2:
                 continue
             timestamp, name, email, message = row
             if timestamp in processed:
