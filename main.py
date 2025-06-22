@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import requests
+import streamlit as st
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -20,8 +21,8 @@ EMAIL_PASS = os.getenv("APP_PASSWORD")
 
 # === AUTHENTICATE SHEETS ===
 def get_sheet_service():
-    creds = service_account.Credentials.from_service_account_file(
-        'credentials.json',
+    creds = service_account.Credentials.from_service_account_info(
+        dict(st.secrets["google"]),  # Load from Streamlit Secrets
         scopes=['https://www.googleapis.com/auth/spreadsheets.readonly']
     )
     return build('sheets', 'v4', credentials=creds)
