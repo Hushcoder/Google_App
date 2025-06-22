@@ -50,8 +50,8 @@ def get_form_data():
 #     return result['candidates'][0]['content']['parts'][0]['text']
 def generate_reply(user_message, user_name):
     prompt = f"Write a polite and helpful email in response to the following query:\n\nName: {user_name}\nQuery: {user_message}"
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
-    
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+
     payload = {
         "contents": [{"parts": [{"text": prompt}]}]
     }
