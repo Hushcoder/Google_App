@@ -14,10 +14,10 @@ load_dotenv()
 SPREADSHEET_ID = '1SGnwsvlJgoppipYm0g0cw9dU318-1mYDA5GQeYp1yZE'
 RANGE = 'Form Responses 1!C:D'  # Adjust columns as needed
 PROCESSED_FLAG_FILE = 'processed_ids.txt'
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = st.secrets("GEMINI_API_KEY")
 
-EMAIL_USER = os.getenv("EMAIL")
-EMAIL_PASS = os.getenv("APP_PASSWORD")
+EMAIL_USER = st.secrets("EMAIL")
+EMAIL_PASS = st.secrets("APP_PASSWORD")
 
 # === AUTHENTICATE SHEETS ===
 def get_sheet_service():
@@ -83,6 +83,3 @@ def main():
 
             f.write(timestamp + '\n')
             print(f"Email sent to {email}")
-
-if __name__ == "__main__":
-    main()
